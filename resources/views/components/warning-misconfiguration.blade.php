@@ -1,6 +1,6 @@
 <style>
 	#lychee_misconfiguration_warning {
-		visibility: hidden;
+		clip-path: inset(100%);
 		position: fixed;
 		inset: 0;
 		overflow: auto;
@@ -11,7 +11,7 @@
 	}
 	@keyframes lychee_misconfiguration_reveal {
 		to {
-			visibility: visible;
+			clip-path: inset(0);
 		}
 	}
 </style>
