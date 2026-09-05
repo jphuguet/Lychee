@@ -39,7 +39,7 @@
 		<!-- Assignment modal -->
 		<FaceAssignmentModal
 			v-if="selectedFace"
-			v-model:open="isAssignmentOpen"
+			v-model:open="is_face_assignment_visible"
 			:face="selectedFace"
 			@assigned="handleFaceAssigned"
 			@dismissed="handleFaceDismissed"
@@ -56,6 +56,7 @@ import FaceDetectionService from "@/services/face-detection-service";
 import { isTouchDevice } from "@/utils/keybindings-utils";
 import { useLeftMenuStateStore } from "@/stores/LeftMenuState";
 import { useLycheeStateStore } from "@/stores/LycheeState";
+import { useTogglablesStateStore } from "@/stores/ModalsState";
 import { storeToRefs } from "pinia";
 import { definePanelShortcuts } from "@/v8/composables/usePanelShortcuts";
 
@@ -71,7 +72,9 @@ const emits = defineEmits<{
 const toast = useAppToast();
 const leftMenuStore = useLeftMenuStateStore();
 const lycheeStore = useLycheeStateStore();
+const togglableStore = useTogglablesStateStore();
 const { initData } = storeToRefs(leftMenuStore);
+const { is_face_assignment_visible } = storeToRefs(togglableStore);
 
 const isTouchDev = isTouchDevice();
 
@@ -115,7 +118,6 @@ onUnmounted(() => {
 	}
 });
 
-const isAssignmentOpen = ref(false);
 const selectedFace = ref<App.Http.Resources.Models.FaceResource | undefined>(undefined);
 
 const visibleFaces = computed(() => props.faces.filter((f) => !f.is_dismissed));
@@ -137,7 +139,7 @@ function handleClick(face: App.Http.Resources.Models.FaceResource) {
 			});
 	} else {
 		selectedFace.value = face;
-		isAssignmentOpen.value = true;
+		is_face_assignment_visible.value = true;
 	}
 }
 

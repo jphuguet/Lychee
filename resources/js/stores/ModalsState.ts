@@ -52,6 +52,8 @@ export const useTogglablesStateStore = defineStore("togglables-store", {
 		is_apply_renamer_visible: false,
 		is_watermark_confirm_visible: false,
 		is_camera_capture_visible: false,
+		is_download_album_visible: false,
+		is_face_assignment_visible: false,
 
 		// Set by the Spotlight "Move current album" action so MoveDialog targets the
 		// currently-open album instead of whatever child album/photo is checkbox-selected.
@@ -110,7 +112,9 @@ export const useTogglablesStateStore = defineStore("togglables-store", {
 				state.is_copy_visible ||
 				state.is_apply_renamer_visible ||
 				state.is_watermark_confirm_visible ||
-				state.is_keybindings_help_open
+				state.is_keybindings_help_open ||
+				state.is_download_album_visible ||
+				state.is_face_assignment_visible
 			);
 		},
 	},

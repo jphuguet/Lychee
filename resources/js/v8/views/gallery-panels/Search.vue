@@ -266,14 +266,13 @@ async function load() {
 	photoStore.load();
 }
 
-const { is_slideshow_active, is_photo_edit_open, is_full_screen, are_details_open } = storeToRefs(togglableStore);
+const { is_slideshow_active, is_photo_edit_open, is_full_screen, are_details_open, is_download_album_visible } = storeToRefs(togglableStore);
 
 const { getParentId } = usePhotoRoute(router);
 
 const is_download_photo_visible = ref(false);
 const downloadPhotoIds = ref<string[]>([]);
 const downloadFromId = ref<string | null>(null);
-const is_download_album_visible = ref(false);
 const downloadAlbumIds = ref<string[]>([]);
 
 const title = computed<string>(() => trans("gallery.search.title"));
@@ -318,6 +317,8 @@ const configForMenu = computed<App.Http.Resources.GalleryConfigs.AlbumConfig>(()
 		is_nsfw_warning_visible: false,
 		is_breadcrumb_enabled: false,
 		album_thumb_css_aspect_ratio: "aspect-square",
+		date_format_album_thumb: "M Y",
+		thumb_min_max_order: "younger_older",
 		photo_layout: "justified",
 		is_album_timeline_enabled: false,
 		is_photo_timeline_enabled: false,
