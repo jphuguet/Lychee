@@ -10,13 +10,17 @@ export type LocalSelection = {
 
 export type PanelShortcutsOptions = ShortcutsOptions & {
 	localSelection?: LocalSelection;
+	// Gate for modals that live outside the Pinia-backed togglables store
+	// (e.g. module-level singleton state shared with v7), so shortcuts still
+	// pause while they're open.
+	extraModalOpen?: MaybeRefOrGetter<boolean>;
 };
 
 export function definePanelShortcuts(config: MaybeRefOrGetter<ShortcutsConfig>, options?: PanelShortcutsOptions) {
 	const togglableStore = useTogglablesStateStore();
 	const photoStore = usePhotoStore();
 
-	const { localSelection, ...shortcutsOptions } = options ?? {};
+	const { localSelection, extraModalOpen, ...shortcutsOptions } = options ?? {};
 
 	const hasSelection = computed(
 		() =>
@@ -32,7 +36,7 @@ export function definePanelShortcuts(config: MaybeRefOrGetter<ShortcutsConfig>, 
 	}
 
 	const panelConfig = computed<ShortcutsConfig>(() => {
-		if (togglableStore.is_modal_open) {
+		if (togglableStore.is_modal_open || toValue(extraModalOpen)) {
 			return {};
 		}
 

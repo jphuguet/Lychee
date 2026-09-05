@@ -395,19 +395,22 @@ const menuSections = computed<ContextMenuItem[][]>(() => {
 	return sections.filter((s) => s.length > 0);
 });
 
-definePanelShortcuts({
-	h: () => (are_nsfw_visible.value = !are_nsfw_visible.value),
-	f: () => togglableStore.toggleFullScreen(),
-	" ": () => unselect(),
-	m: () => albumsStore.rootRights?.can_edit && hasSelection() && toggleMove(),
-	delete: () => albumsStore.rootRights?.can_edit && hasSelection() && toggleDelete(),
-	backspace: () => albumsStore.rootRights?.can_edit && hasSelection() && toggleDelete(),
-	meta_a: () => {
-		selectEverything();
+definePanelShortcuts(
+	{
+		h: () => (are_nsfw_visible.value = !are_nsfw_visible.value),
+		f: () => togglableStore.toggleFullScreen(),
+		" ": () => unselect(),
+		m: () => albumsStore.rootRights?.can_edit && hasSelection() && toggleMove(),
+		delete: () => albumsStore.rootRights?.can_edit && hasSelection() && toggleDelete(),
+		backspace: () => albumsStore.rootRights?.can_edit && hasSelection() && toggleDelete(),
+		meta_a: () => {
+			selectEverything();
+		},
+		l: () => !userStore.isLoggedIn && (is_login_open.value = true),
+		k: () => !userStore.isLoggedIn && (is_webauthn_open.value = true),
 	},
-	l: () => !userStore.isLoggedIn && (is_login_open.value = true),
-	k: () => !userStore.isLoggedIn && (is_webauthn_open.value = true),
-});
+	{ extraModalOpen: isAdvisoriesVisible },
+);
 
 const can_upload = computed(() => albumsStore.rootRights?.can_upload === true);
 const root_parent_id = ref<string | null>(null);

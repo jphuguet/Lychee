@@ -53,6 +53,7 @@ export const useTogglablesStateStore = defineStore("togglables-store", {
 		is_watermark_confirm_visible: false,
 		is_camera_capture_visible: false,
 		is_download_album_visible: false,
+		is_download_photo_visible: false,
 		is_face_assignment_visible: false,
 
 		// Set by the Spotlight "Move current album" action so MoveDialog targets the
@@ -114,6 +115,7 @@ export const useTogglablesStateStore = defineStore("togglables-store", {
 				state.is_watermark_confirm_visible ||
 				state.is_keybindings_help_open ||
 				state.is_download_album_visible ||
+				state.is_download_photo_visible ||
 				state.is_face_assignment_visible
 			);
 		},

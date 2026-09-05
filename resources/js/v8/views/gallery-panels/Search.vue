@@ -266,11 +266,11 @@ async function load() {
 	photoStore.load();
 }
 
-const { is_slideshow_active, is_photo_edit_open, is_full_screen, are_details_open, is_download_album_visible } = storeToRefs(togglableStore);
+const { is_slideshow_active, is_photo_edit_open, is_full_screen, are_details_open, is_download_album_visible, is_download_photo_visible } =
+	storeToRefs(togglableStore);
 
 const { getParentId } = usePhotoRoute(router);
 
-const is_download_photo_visible = ref(false);
 const downloadPhotoIds = ref<string[]>([]);
 const downloadFromId = ref<string | null>(null);
 const downloadAlbumIds = ref<string[]>([]);
